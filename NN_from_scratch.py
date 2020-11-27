@@ -1,6 +1,5 @@
 # %%
 import tensorflow as tf
-import matplotlib.pyplot as plt
 import numpy as np
 
 # %%
@@ -8,6 +7,8 @@ import numpy as np
 from helpers import plot_number
 
 # %%
+
+
 def load_mnist_data():
     """Download mnist dataset, scale the images"""
     mnist = tf.keras.datasets.mnist
@@ -59,6 +60,8 @@ prediction = np.argmax(model(x_test[n].reshape(1, size[0], size[1])).numpy())
 print("Prediction:", prediction, "- Actual:", y_test[n])
 
 # %%
+
+
 def extract_weights_from_model(model):
     """Extract the weights from a model and add the to a list"""
     weights = []
@@ -72,6 +75,7 @@ def extract_weights_from_model(model):
 weights = extract_weights_from_model(model)
 
 # %%
+
 
 # Our custom NN class. This only works for a simple feed forward NN.
 class NN:
@@ -107,5 +111,3 @@ plot_number(x_test[n])
 model = MyNN(weights)
 prediction = model.predict(x_test[n])
 print("Prediction:", prediction, "- Actual:", y_test[n])
-
-# %%
