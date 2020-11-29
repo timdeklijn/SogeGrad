@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 from sogegrad.nn import Model
-from sogegrad.layer import Sigmoid, Linear
+from sogegrad.layer import Sigmoid, Linear, Flatten
 
 
 def download_mnist():
@@ -12,16 +12,19 @@ def download_mnist():
     return x_train, y_train, x_test, y_test
 
 
-# Define a model
-model = Model([Linear(28 * 28, 128), Sigmoid(), Linear(128, 10), Sigmoid()])
-
 x_train, y_train, x_test, y_test = download_mnist()
 
-model.fit(x_train, y_train)
 
-prediction = model(x_test[0])
-
-# def train(x_train, y_train):
-
-
-# import matplotlib.pyplot as plt
+batch_size = 10
+# Define a model
+model = Model(
+    [
+        Flatten((28, 28), "flatten"),
+        Linear(28 * 28, 128, "linear1"),
+        Sigmoid("sigmoid1"),
+        Linear(128, 10, "linear2"),
+        Sigmoid("sigmoid2"),
+    ]
+)
+model.fit(x_train, y_train, 10)
+# prediction = model(x_test[0])

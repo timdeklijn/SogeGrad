@@ -1,15 +1,18 @@
+import numpy as np
+
+
 class Loss:
-    def forward(self, pred, actual):
+    def __call__(self, pred, actual):
         raise NotImplementedError
 
-    def backward(self, x):
+    def gradient(self, x):
         raise NotImplementedError
 
 
 class MSE:
-    def forward(self, pred, actual):
+    def __call__(self, pred, actual):
         assert pred.shape == actual.shape
-        return np.sum((pred - actual) ** 2, axis=-1)
+        return np.sum((pred - actual) ** 2)
 
-    def backward(self, pred, actual):
-        return pred - actual
+    def gradient(self, pred, actual):
+        return 2 * (pred - actual)
