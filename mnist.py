@@ -15,7 +15,10 @@ def download_mnist():
 x_train, y_train, x_test, y_test = download_mnist()
 
 
-batch_size = 10
+x_train = x_train[:1000]
+y_train = y_train[:1000]
+
+batch_size = 100
 # Define a model
 model = Model(
     [
@@ -26,5 +29,5 @@ model = Model(
         Sigmoid("sigmoid2"),
     ]
 )
-model.fit(x_train, y_train, 10)
+model.fit(x_train, y_train, 100, batch_size)
 # prediction = model(x_test[0])

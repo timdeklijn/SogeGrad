@@ -22,19 +22,23 @@ class Model:
         # TODO: shuffle data?
         starts = np.arange(0, len(x_train), batch_size)
         loss_fn = MSE()
-        optim = SGD(0.01)
+        optim = SGD(0.001)
 
         for epoch in range(1, epochs):
             epoch_loss = 0.0
             for i in starts:
                 batch = x_train[i : i + batch_size]
-                predictions = self(x_train[i : i + batch_size])
-                targets = dummy_y(y_train[i : i + batch_size])
+                predictions = self(batch)
+                # targets = dummy_y(y_train[i : i + batch_size])
+                targets = y_train[i : i + batch_size]
                 epoch_loss += loss_fn(predictions, targets)
                 grad = loss_fn.gradient(predictions, targets)
                 self.backward(grad)
                 optim.step(self)
             print(epoch, epoch_loss)
+        for i in range(10):
+            sample = x_train[i]
+            print(sample, np.abs(np.rint(self(sample))), y_train[i])
 
 
 def dummy_y(y):

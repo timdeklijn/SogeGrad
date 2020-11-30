@@ -18,8 +18,8 @@ class Linear(Layer):
     def __init__(self, input_shape, output_shape, name=None):
         super().__init__()
         self.params = {
-            "w": np.random.rand(input_shape, output_shape),
-            "b": np.random.rand(output_shape),
+            "w": np.random.randn(input_shape, output_shape),
+            "b": np.random.randn(output_shape),
         }
         self.name = name
         self.x_forward = None
@@ -47,7 +47,8 @@ class Sigmoid(Layer):
         return self(x)
 
     def backward(self, x):
-        return self(x) * (1 - self(x))
+        s = self(x)
+        return s * (1 - s)
 
 
 class Flatten(Layer):
@@ -60,5 +61,4 @@ class Flatten(Layer):
         return x.reshape(x.shape[0], x.shape[1] * x.shape[1])
 
     def backward(self, x):
-        # return x.reshape(self.params["shape"])
         return x

@@ -16,3 +16,4 @@ class MSE:
 
     def gradient(self, pred, actual):
         return 2 * (pred - actual)
+        # return np.dot(pred, actual)
